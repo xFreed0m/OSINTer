@@ -196,7 +196,7 @@ git config --global mergetool.prompt false
 git config --global push.default simple
 
 ##### Install misc
-(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}misc${RESET}"
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}misc${RESET} ~ This can take some time"
 apt-get -y -qq install chromium-chromedriver curl golang python3 python3-pip build-essential libsqlite3-dev libseccomp-dev libsodium-dev publicsuffix cargo python python-pip \
 || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
@@ -531,3 +531,4 @@ exit 0
 # Add TL packages from sheet
 # identify if SSH and suggest running from a screen
 # clean up output (only print stages & errors) finish implementing?
+# If takes more time than timeout in TF - might deploy in screen
