@@ -283,10 +283,10 @@ apt-get -y -qq install google-chrome-stable \
 aptitude install -y -q -t kali-rolling maltego \
 || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
-##### Install tinfoleak
-(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}tinfoleak${RESET}"
-aptitude install -y -q -t kali-rolling tinfoleak \
-|| echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+# ##### Install tinfoleak
+# (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}tinfoleak${RESET}"
+# aptitude install -y -q -t kali-rolling tinfoleak \
+# || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
 ##### Install stegosuite
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}stegosuite${RESET}"
