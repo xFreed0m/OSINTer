@@ -195,15 +195,11 @@ git config --global mergetool.prompt false
 #--- Set as default push
 git config --global push.default simple
 
-##### Install curl
-(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}curl${RESET}"
-apt-get -y -qq install curl \
-  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+##### Install misc
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}misc${RESET}"
+apt-get -y -qq install chromium-chromedriver curl golang python3 python3-pip build-essential libsqlite3-dev libseccomp-dev libsodium-dev publicsuffix cargo python python-pip \
+|| echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
-##### Install go
-(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}go${RESET}"
-apt-get -y -qq install golang \
-  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
 ##### Install libreoffice
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}LibreOffice${RESET} ~ This can take some time"
@@ -213,11 +209,6 @@ apt-get -y -qq install libreoffice \
 ##### Install aptitude (needed for kali packages install)
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}Aptitude${RESET}"
 apt-get -y -qq install aptitude \
-  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
-
-##### Install chromium-chromedriver
-(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}chromium-chromedriver${RESET}"
-apt-get -y -qq install chromium-chromedriver \
   || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
 #### TL OSINT Pkgs
@@ -267,7 +258,6 @@ apt-get -y -qq install simplescreenrecorder \
 apt-get -y -qq install peek \
   || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
-
 ##### Install TOR
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}TOR${RESET}"
 apt-get -y -qq install torbrowser-launcher \
@@ -303,24 +293,11 @@ aptitude install -y -q -t kali-rolling tinfoleak \
 apt-get -y -qq install stegosuite \
 || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
-##### Install python3 + pip3
-(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}python3 + pip3${RESET}"
-apt-get -y -qq install python3 python3-pip \
-|| echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
-
-##### Install python2.7 + pip2.7
-(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}python2.7 + pip2.7${RESET}"
-apt-get -y -qq install python python-pip \
-|| echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
-
-##### Install misc
-(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}misc${RESET}"
-apt-get -y -qq install build-essential libsqlite3-dev libseccomp-dev libsodium-dev publicsuffix \
-|| echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
 
 
-##### source installs
+
+##### git installs
 
 ##### Install sn0int
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}sn0int${RESET}"
@@ -386,7 +363,7 @@ popd >/dev/null
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}skiptracer${RESET}"
 apt-get -y -qq install git \
   || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
-git clone -q -b master https://github.com/xillwillx/skiptracer.git /opt/LittleBrother-git/ \
+git clone -q -b master https://github.com/xillwillx/skiptracer.git /opt/skiptracer-git/ \
   || echo -e ' '${RED}'[!] Issue when git cloning'${RESET} 1>&2
 pip3 install --progress-bar off -r /opt/skiptracer-git/requirements.txt \
   || echo -e ' '${RED}'[!] Issue when pip3 installing requirements'${RESET} 1>&2
@@ -470,7 +447,7 @@ popd >/dev/null
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}Infoga${RESET}"
 apt-get -y -qq install git \
   || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
-git clone -q -b master https://github.com/sham00n/Infoga.git /opt/Infoga-git/ \
+git clone -q -b master https://github.com/m4ll0k/Infoga.git /opt/Infoga-git/ \
   || echo -e ' '${RED}'[!] Issue when git cloning'${RESET} 1>&2
 python3 /opt/Infoga-git/setup.py install \
   || echo -e ' '${RED}'[!] Issue when python3 installing requirements'${RESET} 1>&2
@@ -503,7 +480,7 @@ pip3 install --progress-bar off h8mail \
 
 ##### Install twint
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}twint${RESET}"
-pip3 install --progress-bar off twint
+pip3 install --progress-bar off twint \
 || echo -e ' '${RED}'[!] Issue with pip install'${RESET} 1>&2
 
 
