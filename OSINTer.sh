@@ -215,6 +215,11 @@ apt-get -y -qq install libreoffice \
 apt-get -y -qq install aptitude \
   || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
+##### Install chromium-chromedriver
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}chromium-chromedriver${RESET}"
+apt-get -y -qq install chromium-chromedriver \
+  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+
 #### TL OSINT Pkgs
 
 ##### Install GIMP
@@ -270,8 +275,12 @@ apt-get -y -qq install torbrowser-launcher \
 
 ##### Install amass
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}amass${RESET}"
-export GO111MODULE=on
 aptitude install -y -q -t kali-rolling amass \
+  || echo -e ' '${RED}'[!] Issue with aptitude'${RESET} 1>&2
+
+##### Install googler
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}googler${RESET}"
+aptitude install -y -q -t kali-rolling googler \
   || echo -e ' '${RED}'[!] Issue with aptitude'${RESET} 1>&2
 
 ##### Install Google Chrome (needed for hunchly)
@@ -282,6 +291,11 @@ apt-get -y -qq install google-chrome-stable \
 ##### Install maltego
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}maltego${RESET}"
 aptitude install -y -q -t kali-rolling maltego \
+|| echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+
+##### Install tinfoleak
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}tinfoleak${RESET}"
+aptitude install -y -q -t kali-rolling tinfoleak \
 || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
 ##### Install stegosuite
@@ -299,7 +313,38 @@ apt-get -y -qq install python3 python3-pip \
 apt-get -y -qq install python python-pip \
 || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
 
+##### Install misc
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}misc${RESET}"
+apt-get -y -qq install build-essential libsqlite3-dev libseccomp-dev libsodium-dev publicsuffix \
+|| echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+
+
+
 ##### source installs
+
+##### Install sn0int
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}sn0int${RESET}"
+apt-get -y -qq install git \
+  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+git clone -q -b master https://github.com/kpcyrd/sn0int.git /opt/sn0int-git/ \
+  || echo -e ' '${RED}'[!] Issue when git cloning'${RESET} 1>&2
+cd /opt/sn0int-git/ && cargo install -f --path . \
+  || echo -e ' '${RED}'[!] Issue when pip3 installing requirements'${RESET} 1>&2
+pushd /opt/sn0int-git/ >/dev/null
+git pull -q
+popd >/dev/null
+
+##### Install DumpsterDiver
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}DumpsterDiver${RESET}"
+apt-get -y -qq install git \
+  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+git clone -q -b master https://github.com/securing/DumpsterDiver.git /opt/DumpsterDiver-git/ \
+  || echo -e ' '${RED}'[!] Issue when git cloning'${RESET} 1>&2
+pip3 install --progress-bar off -r /opt/DumpsterDiver-git/requirements.txt \
+  || echo -e ' '${RED}'[!] Issue when pip3 installing requirements'${RESET} 1>&2
+pushd /opt/DumpsterDiver-git/ >/dev/null
+git pull -q
+popd >/dev/null
 
 ##### Install theHarvester
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}theHarvester${RESET}"
@@ -310,6 +355,42 @@ git clone -q -b master https://github.com/laramies/theHarvester.git /opt/theHarv
 pip3 install --progress-bar off -r /opt/theHarvester-git/requirements.txt \
   || echo -e ' '${RED}'[!] Issue when pip3 installing requirements'${RESET} 1>&2
 pushd /opt/theHarvester-git/ >/dev/null
+git pull -q
+popd >/dev/null
+
+##### Install instaloctrack
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}instaloctrack${RESET}"
+apt-get -y -qq install git \
+  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+git clone -q -b master https://github.com/bernsteining/instaloctrack.git /opt/instaloctrack-git/ \
+  || echo -e ' '${RED}'[!] Issue when git cloning'${RESET} 1>&2
+pip3 install --progress-bar off -r /opt/instaloctrack-git/requirements.txt \
+  || echo -e ' '${RED}'[!] Issue when pip3 installing requirements'${RESET} 1>&2
+pushd /opt/instaloctrack-git/ >/dev/null
+git pull -q
+popd >/dev/null
+
+##### Install LittleBrother
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}LittleBrother${RESET}"
+apt-get -y -qq install git \
+  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+git clone -q -b master https://github.com/lulz3xploit/LittleBrother.git /opt/LittleBrother-git/ \
+  || echo -e ' '${RED}'[!] Issue when git cloning'${RESET} 1>&2
+pip3 install --progress-bar off -r /opt/LittleBrother-git/requirements.txt \
+  || echo -e ' '${RED}'[!] Issue when pip3 installing requirements'${RESET} 1>&2
+pushd /opt/LittleBrother-git/ >/dev/null
+git pull -q
+popd >/dev/null
+
+##### Install skiptracer
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}skiptracer${RESET}"
+apt-get -y -qq install git \
+  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+git clone -q -b master https://github.com/xillwillx/skiptracer.git /opt/LittleBrother-git/ \
+  || echo -e ' '${RED}'[!] Issue when git cloning'${RESET} 1>&2
+pip3 install --progress-bar off -r /opt/skiptracer-git/requirements.txt \
+  || echo -e ' '${RED}'[!] Issue when pip3 installing requirements'${RESET} 1>&2
+pushd /opt/skiptracer-git/ >/dev/null
 git pull -q
 popd >/dev/null
 
@@ -344,8 +425,20 @@ apt-get -y -qq install git \
 git clone -q -b master https://github.com/twelvesec/gasmask.git /opt/gasmask-git/ \
   || echo -e ' '${RED}'[!] Issue when git cloning'${RESET} 1>&2
 pip install --progress-bar off -r /opt/gasmask-git/requirements.txt \
-  || echo -e ' '${RED}'[!] Issue when pip3 installing requirements'${RESET} 1>&2
+  || echo -e ' '${RED}'[!] Issue when pip installing requirements'${RESET} 1>&2
 pushd /opt/gasmask-git/ >/dev/null
+git pull -q
+popd >/dev/null
+
+##### Install fbi
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}fbi${RESET}"
+apt-get -y -qq install git \
+  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+git clone -q -b master https://github.com/xHak9x/fbi.git /opt/fbi-git/ \
+  || echo -e ' '${RED}'[!] Issue when git cloning'${RESET} 1>&2
+pip install --progress-bar off -r /opt/fbi-git/requirements.txt \
+  || echo -e ' '${RED}'[!] Issue when pip installing requirements'${RESET} 1>&2
+pushd /opt/fbi-git/ >/dev/null
 git pull -q
 popd >/dev/null
 
@@ -361,6 +454,30 @@ pushd /opt/sublist3r-git/ >/dev/null
 git pull -q
 popd >/dev/null
 
+##### Install buster
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}buster${RESET}"
+apt-get -y -qq install git \
+  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+git clone -q -b master https://github.com/sham00n/buster.git /opt/buster-git/ \
+  || echo -e ' '${RED}'[!] Issue when git cloning'${RESET} 1>&2
+python3 /opt/buster-git/setup.py install \
+  || echo -e ' '${RED}'[!] Issue when python3 installing requirements'${RESET} 1>&2
+pushd /opt/buster-git/ >/dev/null
+git pull -q
+popd >/dev/null
+
+##### Install Infoga
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}Infoga${RESET}"
+apt-get -y -qq install git \
+  || echo -e ' '${RED}'[!] Issue with apt-get install'${RESET} 1>&2
+git clone -q -b master https://github.com/sham00n/Infoga.git /opt/Infoga-git/ \
+  || echo -e ' '${RED}'[!] Issue when git cloning'${RESET} 1>&2
+python3 /opt/Infoga-git/setup.py install \
+  || echo -e ' '${RED}'[!] Issue when python3 installing requirements'${RESET} 1>&2
+pushd /opt/Infoga-git/ >/dev/null
+git pull -q
+popd >/dev/null
+
 ##### Install PhoneInfoga
 (( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}PhoneInfoga${RESET}"
 curl -s -L "https://github.com/sundowndev/phoneinfoga/releases/download/v2.0.5/phoneinfoga_$(uname -s)_$(uname -m).tar.gz" -o /opt/phoneinfoga.tar.gz \
@@ -368,6 +485,13 @@ curl -s -L "https://github.com/sundowndev/phoneinfoga/releases/download/v2.0.5/p
 mkdir /opt/phoneInfoga-git
 tar xfv /opt/phoneinfoga.tar.gz -C /opt/phoneInfoga-git/
 cp /opt/phoneInfoga-git/PhoneInfoga /usr/bin/phoneinfoga
+
+##### Install youtube-dl
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}youtube-dl${RESET}"
+ wget -q https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl \
+  || echo -e ' '${RED}'[!] Issue with downloading'${RESET} 1>&2
+chmod a+rx /usr/local/bin/youtube-dl
+cp /usr/local/bin/youtube-dl /usr/bin/youtube-dl
 
 ##### pip installs
 
@@ -388,6 +512,10 @@ pip3 install --progress-bar off twint
 pip3 install --progress-bar off instaLooter \
 || echo -e ' '${RED}'[!] Issue with pip install'${RESET} 1>&2
 
+##### Install checkdmarc
+(( STAGE++ )); echo -e "\n ${GREEN}[+]${RESET} (${STAGE}/${TOTAL}) Installing ${GREEN}checkdmarc${RESET}"
+pip3 install --progress-bar off checkdmarc \
+|| echo -e ' '${RED}'[!] Issue with pip install'${RESET} 1>&2
 
 ########################################### End of script
 ##### Clean the system
